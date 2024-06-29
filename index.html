@@ -10,29 +10,34 @@
 </head>
 <body>
   <section id="letsPlay" class="play">
-    <!--Mängu alustamise kinnitamise aken,
-    Lisades ka kasutajanime.-->
-  </section>
-  <h1>Rock Paper Scissors</h1>
-  <section class="scoreContainer">
-    <div class="scoreBox">
-      <p id="myName" class="players">Player</p>
-      <div class="score"><span id="playerScore">0</span>:<span id="computerScore">0</span></div>
-      <p class="players">Computer</p>
+    <div class="playContainer">
+      <label for="username">Enter your name: </label>
+      <input type="text" id="username">
+      <button id="gameBtn" class="gameBtn">Lets play</button>
     </div>
   </section>
-  <p id="gamesLeft" class="gamesLeft">1/5</p>
-  <p id="resultText" class="resultText">you win!</p>
-  <section class="rpsContainer">
-    <div class="rps">
-      <i class="fa-regular fa-hand-back-fist"></i>
-      <i class="fa-regular fa-hand"></i>
-      <i class="fa-regular fa-hand-scissors"></i>
+  <div class="gameField">
+    <h1>Rock Paper Scissors</h1>
+    <section class="scoreContainer">
+      <div class="scoreBox">
+        <p id="myName" class="players">Player</p>
+        <div class="score"><span id="playerScore">0</span>:<span id="computerScore">0</span></div>
+        <p class="players">Computer</p>
+      </div>
+    </section>
+    <p id="gamesLeft" class="gamesLeft">1/5</p>
+    <p id="resultText" class="resultText">you win!</p>
+    <section class="rpsContainer">
+      <div class="rps">
+        <i class="fa-regular fa-hand-back-fist"></i>
+        <i class="fa-regular fa-hand"></i>
+        <i class="fa-regular fa-hand-scissors"></i>
+      </div>
+    </section>
+    <div class="allButtons">
+      <button id="nextRound" class="button">Next Round</button>
+      <button id="playAgain" class="button">Play again</button>
     </div>
-  </section>
-  <div class="allButtons">
-    <button class="button">Next Round</button>
-    <button class="button">Play again</button>
   </div>
 </body>
 </html>
