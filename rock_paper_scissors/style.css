@@ -2,9 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Lilita+One&family=Pacifico&display=swap');
 
 :root {
-  --light: rgb(222, 222, 223);
-  --dark-blue: rgb(9, 9, 37);
-  --shadow-blue: rgb(34, 34, 65);
+  --light: #FEFEFA;
+  --dark-blue: #090925;
+  --shadow-blue: #222241;
 }
 
 * {
@@ -148,7 +148,7 @@ h1 {
 
 .playContainer {
   color: var(--dark-blue);
-  margin-bottom: 200px;
+  margin-bottom: 100px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -170,6 +170,11 @@ h1 {
   transition: ease 0.4s;
   color: var(--light);
   background-color: var(--dark-blue);
+}
+
+#errorText {
+  color: red;
+  width: 200px;
 }
 
 .play.slide-out {
@@ -213,6 +218,10 @@ h1 {
     padding: 15px;
     font-size: 40px;
   }
+  .play {
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+  }
 }
 
 @media(max-width: 480px) {
@@ -235,5 +244,9 @@ h1 {
   .fa-hand-back-fist:hover, .fa-hand:hover, .fa-hand-scissors:hover {
     padding: 15px;
     font-size: 40px;
+  }
+  .play {
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
   }
 }

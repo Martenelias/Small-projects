@@ -13,14 +13,15 @@
     <div class="playContainer">
       <label for="username">Enter your name: </label>
       <input type="text" id="username">
-      <button id="gameBtn" class="gameBtn">Lets play</button>
+      <button id="gameBtn" class="gameBtn" disabled>Lets play</button>
+      <p id="errorText"></p>
     </div>
   </section>
   <div class="gameField">
     <h1>Rock Paper Scissors</h1>
     <section class="scoreContainer">
       <div class="scoreBox">
-        <p id="myName" class="players">Player</p>
+        <p id="myName" class="players"></p>
         <div class="score"><span id="playerScore">0</span>:<span id="computerScore">0</span></div>
         <p class="players">Computer</p>
       </div>
