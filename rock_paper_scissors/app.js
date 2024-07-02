@@ -62,7 +62,7 @@ function getPlayerChoice(playerChoice) {
   if (roundsPlayed < 5) {
     const computerChoice = getComputerChoice();
     const result = getWinner(playerChoice, computerChoice);
-    displayResult(result);
+    displayResult(result, computerChoice);
 
     // disable rock, paper and scissors while you press next round.
     if (result) {
@@ -130,8 +130,8 @@ function resetGame() {
   closeWindow();
 }
 
-function displayResult(result) {
-  document.getElementById("resultText").textContent = result;
+function displayResult(result, computerChoice) {
+  document.getElementById("resultText").textContent = `${result} Computer chose ${computerChoice}.`;
   nextRound.disabled = false;
 }
 
