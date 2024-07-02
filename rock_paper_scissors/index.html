@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+  <title>Rock Paper Scissors</title>
+</head>
+<body>
+  <section id="letsPlay" class="play">
+    <div class="playContainer">
+      <label for="username">Enter your name: </label>
+      <input type="text" id="username">
+      <button id="gameBtn" class="gameBtn" disabled>Lets play</button>
+      <p id="errorText"></p>
+    </div>
+  </section>
+  <div class="gameField">
+    <h1>Rock Paper Scissors</h1>
+    <section class="scoreContainer">
+      <div class="scoreBox">
+        <p id="myName" class="players"></p>
+        <div class="score"><span id="playerScore">0</span>:<span id="computerScore">0</span></div>
+        <p class="players">Computer</p>
+      </div>
+    </section>
+    <p class="gamesLeft"><span id="gamesLeft">1</span>/5</p>
+    <p id="resultText" class="resultText">Choose rock, paper or scissors.</p>
+    <section class="rpsContainer">
+      <div class="rps">
+        <i id="rock" class="fa-regular fa-hand-back-fist"></i>
+        <i id="paper" class="fa-regular fa-hand"></i>
+        <i id="scissors" class="fa-regular fa-hand-scissors"></i>
+      </div>
+    </section>
+    <div class="allButtons">
+      <button id="nextRound" class="button">Next Round</button>
+      <button id="playAgain" class="button">Play again</button>
+    </div>
+  </div>
+</body>
+</html>
