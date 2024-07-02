@@ -30,6 +30,7 @@ window.onload = function() {
   scissors.addEventListener("click", () => getPlayerChoice("scissors"));
 };
 
+// Checking, if name contains numbers or symbols.
 function getUsername() {
   username = usernameInput.value;
   let namePattern = /^[a-zA-Z\s]+$/;
@@ -59,18 +60,18 @@ function closeWindow() {
 
 function getPlayerChoice(playerChoice) {
   if (roundsPlayed < 5) {
-    nextRound.disabled = true;
     const computerChoice = getComputerChoice();
     const result = getWinner(playerChoice, computerChoice);
     displayResult(result);
 
-    if (result !== "Tie Game!") {
+    // disable rock, paper and scissors while you press next round.
+    if (result) {
       document.querySelector(".rpsContainer").style.pointerEvents = "none";
-      nextRound.disabled = false;
     }
   }
 }
 
+// Calculate random choice for the computer.
 function getComputerChoice() {
   const choices = ["rock", "paper", "scissors"];
   const randomIndex = Math.floor(Math.random() * choices.length);
@@ -103,6 +104,7 @@ function updateScore() {
 function getNextRound() {
   roundsPlayed += 1;
   gamesLeft.textContent = roundsPlayed;
+  nextRound.disabled = true;
 
   if (roundsPlayed < 5) {
     document.querySelector(".rpsContainer").style.pointerEvents = "auto";
@@ -114,6 +116,7 @@ function getNextRound() {
   }
 }
 
+// When pressing play again, all the parameters must be zero again to start new game.
 function resetGame() {
   roundsPlayed = 0;
   playerScoreCount = 0;
