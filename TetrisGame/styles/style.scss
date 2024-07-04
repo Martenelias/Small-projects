@@ -7,21 +7,30 @@
   align-items: center;
 }
 
+@mixin font {
+  font-family: "Roboto Condensed", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
+
 $whiteColor: #b7c5d4;
 $yellowBg: #bac0a2;
 $lightBlue: #1f3a58;
+
 
 * {
   margin: 0;
   padding: 0;
 }
 
+.tetromino {
+  background-color: $lightBlue;
+}
+
 body {
   background-image: radial-gradient(circle, $lightBlue, #000913);
-  font-family: "Roboto Condensed", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 700;
-  font-style: normal;
+  @include font();
   color: $whiteColor;
 
   .tetris {
@@ -44,6 +53,28 @@ body {
         width: 125px;
         height: 500px;
         background-color: #1f3a5842;
+        .info {
+          #startBtn {
+            background-color: $yellowBg;
+            color: $lightBlue;
+            width: 108px;
+            height: 40px;
+            outline: 2px solid $lightBlue;
+            outline-offset: -4px;
+            @include font();
+            font-size: 24px;
+            border: none;
+            transition: 0.3s ease;
+            &:hover {
+              cursor: pointer;
+              background-color: $lightBlue;
+              color: $yellowBg;
+              outline: 2px solid $yellowBg;
+              outline-offset: -4px;
+            }
+          }
+        }
+        
       }
       #tetris-container {
         display: grid;
@@ -68,7 +99,7 @@ body {
           width: 108px;
           height: 40px;
           outline: 2px solid $lightBlue;
-          outline-offset: -5px;
+          outline-offset: -4px;
         }
         #nextShape {
           background-color: $yellowBg;
@@ -77,7 +108,7 @@ body {
           width: 108px;
           height: 108px;
           outline: 2px solid $lightBlue;
-          outline-offset: -5px;
+          outline-offset: -4px;
         }
       }
     }

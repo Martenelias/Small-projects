@@ -5,6 +5,10 @@
   padding: 0;
 }
 
+.tetromino {
+  background-color: #1f3a58;
+}
+
 body {
   background-image: radial-gradient(circle, #1f3a58, #000913);
   font-family: "Roboto Condensed", sans-serif;
@@ -40,6 +44,28 @@ body .tetris .tetrisField .infoContainer {
   height: 500px;
   background-color: rgba(31, 58, 88, 0.2588235294);
 }
+body .tetris .tetrisField .infoContainer .info #startBtn {
+  background-color: #bac0a2;
+  color: #1f3a58;
+  width: 108px;
+  height: 40px;
+  outline: 2px solid #1f3a58;
+  outline-offset: -4px;
+  font-family: "Roboto Condensed", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 24px;
+  border: none;
+  transition: 0.3s ease;
+}
+body .tetris .tetrisField .infoContainer .info #startBtn:hover {
+  cursor: pointer;
+  background-color: #1f3a58;
+  color: #bac0a2;
+  outline: 2px solid #bac0a2;
+  outline-offset: -4px;
+}
 body .tetris .tetrisField #tetris-container {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
@@ -65,7 +91,7 @@ body .tetris .tetrisField .resultContainer .resultStyle {
   width: 108px;
   height: 40px;
   outline: 2px solid #1f3a58;
-  outline-offset: -5px;
+  outline-offset: -4px;
 }
 body .tetris .tetrisField .resultContainer #nextShape {
   background-color: #bac0a2;
@@ -74,5 +100,5 @@ body .tetris .tetrisField .resultContainer #nextShape {
   width: 108px;
   height: 108px;
   outline: 2px solid #1f3a58;
-  outline-offset: -5px;
+  outline-offset: -4px;
 }/*# sourceMappingURL=style.css.map */
