@@ -62,7 +62,7 @@ body {
             outline: 2px solid $lightBlue;
             outline-offset: -4px;
             @include font();
-            font-size: 24px;
+            font-size: 16px;
             border: none;
             transition: 0.3s ease;
             &:hover {
@@ -77,12 +77,17 @@ body {
         
       }
       #tetris-container {
-        display: grid;
+        display: flex;
+        flex-wrap: wrap;
         grid-template-columns: repeat(10, 1fr);
         grid-template-rows: repeat(20, 1fr);
         width: 250px;
         height: 500px;
         background-color: $yellowBg;
+        .tetris-box {
+          width: 25px;
+          height: 25px
+        }
       }
       .resultContainer {
         @include flexCenter();
@@ -102,6 +107,10 @@ body {
           outline-offset: -4px;
         }
         #nextShape {
+          display: flex;
+          flex-wrap: wrap;
+          grid-template-columns: repeat(4, 1fr);
+          grid-template-rows: repeat(4, 1fr);
           background-color: $yellowBg;
           color: $lightBlue;
           padding: 4px;
@@ -109,6 +118,10 @@ body {
           height: 108px;
           outline: 2px solid $lightBlue;
           outline-offset: -4px;
+          .next-shape {
+            width: 25px;
+            height: 25px;
+          }
         }
       }
     }

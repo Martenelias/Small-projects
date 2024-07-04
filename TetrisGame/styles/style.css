@@ -55,7 +55,7 @@ body .tetris .tetrisField .infoContainer .info #startBtn {
   font-optical-sizing: auto;
   font-weight: 700;
   font-style: normal;
-  font-size: 24px;
+  font-size: 16px;
   border: none;
   transition: 0.3s ease;
 }
@@ -67,12 +67,17 @@ body .tetris .tetrisField .infoContainer .info #startBtn:hover {
   outline-offset: -4px;
 }
 body .tetris .tetrisField #tetris-container {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(20, 1fr);
   width: 250px;
   height: 500px;
   background-color: #bac0a2;
+}
+body .tetris .tetrisField #tetris-container .tetris-box {
+  width: 25px;
+  height: 25px;
 }
 body .tetris .tetrisField .resultContainer {
   display: flex;
@@ -94,6 +99,10 @@ body .tetris .tetrisField .resultContainer .resultStyle {
   outline-offset: -4px;
 }
 body .tetris .tetrisField .resultContainer #nextShape {
+  display: flex;
+  flex-wrap: wrap;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
   background-color: #bac0a2;
   color: #1f3a58;
   padding: 4px;
@@ -101,4 +110,8 @@ body .tetris .tetrisField .resultContainer #nextShape {
   height: 108px;
   outline: 2px solid #1f3a58;
   outline-offset: -4px;
+}
+body .tetris .tetrisField .resultContainer #nextShape .next-shape {
+  width: 25px;
+  height: 25px;
 }/*# sourceMappingURL=style.css.map */
