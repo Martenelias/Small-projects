@@ -20,6 +20,8 @@ for (let i = 0; i < 16; i++) {
 
 const scoreDisplay = document.getElementById("score");
 const startBtn = document.getElementById("startBtn");
+const myGameOver = document.getElementById("myGameOver");
+myGameOver.style.display = "none";
 let squares = Array.from(document.querySelectorAll(".tetris-box"));
 let displaySquares = Array.from(document.querySelectorAll(".next-shape"));
 const displayWidth = 4;
@@ -75,9 +77,9 @@ const iTetromino = [
 
 const nextUpTetrominos = [
   [1, displayWidth+1, displayWidth*2+1, 2], //lTetromino
-  [0, displayWidth, displayWidth+1, displayWidth*2+1], //zTetromino
-  [1, displayWidth, displayWidth+1, displayWidth+2], //tTetromino
-  [0, 1, displayWidth, displayWidth+1], //oTetromino
+  [displayWidth+1, displayWidth*2+1, displayWidth*2+2, displayWidth*3+2], //zTetromino
+  [displayWidth+1, displayWidth*2, displayWidth*2+1, displayWidth*2+2], //tTetromino
+  [displayWidth*2+1, displayWidth*2+2, displayWidth+1, displayWidth+2], //oTetromino
   [1, displayWidth+1, displayWidth*2+1,  displayWidth*3+1] //iTetromino
 ];
 
@@ -133,6 +135,7 @@ const freeze = () => {
     draw();
     displayShape();
     addScore();
+    gameOver();
   }
 };
 
@@ -219,11 +222,19 @@ const addScore = () => {
       score += 10;
       scoreDisplay.innerHTML = score;
       row.forEach(index => {
-        squares[index].classList.remove("bottom")
+        squares[index].classList.remove("bottom");
+        squares[index].classList.remove("tetromino");
       });
       const squaresRemoved = squares.splice(i, width);
       squares = squaresRemoved.concat(squares);
       squares.forEach(cell => container.appendChild(cell));
     }
+  }
+};
+
+const gameOver = () => {
+  if (current.some(index => squares[currentPosition + index].classList.contains("bottom"))) {
+    myGameOver.style.display = "flex";
+    clearInterval(timerId);
   }
 };

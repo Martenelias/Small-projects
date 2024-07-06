@@ -34,6 +34,8 @@ body {
   color: $whiteColor;
 
   .tetris {
+    position: relative;
+    z-index: 0;
     @include flexCenter();
     flex-direction: column;
     height: 100vh;
@@ -123,6 +125,36 @@ body {
             height: 25px;
           }
         }
+      }
+    }
+  }
+  .gameOver {
+    position: absolute;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(circle, #1f3a58e8, #000913e3);
+    @include flexCenter();
+    flex-direction: column;
+    gap: 30px;
+    h3 {
+      font-size: 40px;
+    }
+    button {
+      background-color: $yellowBg;
+      color: $lightBlue;
+      font-size: 20px;
+      padding: 10px;
+      border-radius: 15px;
+      border: none;
+      outline: 2px solid $lightBlue;
+      outline-offset: -4px;
+      &:hover {
+        cursor: pointer;
+              background-color: $lightBlue;
+              color: $yellowBg;
+              outline: 2px solid $yellowBg;
+              outline-offset: -4px;
       }
     }
   }
