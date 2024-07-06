@@ -225,6 +225,10 @@ const isAtLeft = () => {
   return current.some(index => (currentPosition + index) % width === 0);
 };
 
+const isAtBottom = () => {
+  return current.some(index => (currentPosition + index + width) >= squares.length);
+};
+
 const checkRotatePosition = (P) => {
   P = P || currentPosition;
   if ((P + 1) % width < 4) {
@@ -237,6 +241,9 @@ const checkRotatePosition = (P) => {
       currentPosition += 1;
       checkRotatePosition(P);
     }
+  } else if (isAtBottom()) {
+    currentPosition -= width;
+    checkRotatePosition(P);
   }
 };
 
@@ -288,7 +295,7 @@ const addScore = () => {
       lineScore += 1;
       lines.textContent = lineScore;
       scoreDisplay.innerHTML = score;
-      if (lineScore === 10) {
+      if (lineScore % 10 === 0) {
         levelScore += 1;
         level.textContent = levelScore;
       }
@@ -315,8 +322,3 @@ const gameOver = () => {
     clearInterval(timerId);
   }
 };
-
-//TODO: 
-// fix rotaing in the bottom line error
-// add user and save data
-// save user id score
