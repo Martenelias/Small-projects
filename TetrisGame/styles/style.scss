@@ -28,6 +28,11 @@ $lightBlue: #1f3a58;
   background-color: $lightBlue;
 }
 
+.tetromino-box {
+  outline: 1px solid $lightBlue;
+  outline-offset: -2px;
+}
+
 body {
   background-image: radial-gradient(circle, $lightBlue, #000913);
   @include font();
@@ -88,7 +93,8 @@ body {
         background-color: $yellowBg;
         .tetris-box {
           width: 25px;
-          height: 25px
+          height: 25px;
+          background-size: cover;
         }
       }
       .resultContainer {
@@ -123,6 +129,7 @@ body {
           .next-shape {
             width: 25px;
             height: 25px;
+            background-size: cover;
           }
         }
       }
@@ -143,6 +150,7 @@ body {
     button {
       background-color: $yellowBg;
       color: $lightBlue;
+      @include font();
       font-size: 20px;
       padding: 10px;
       border-radius: 15px;

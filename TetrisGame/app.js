@@ -1,128 +1,186 @@
 const container = document.getElementById("tetris-container");
 const nextShape = document.getElementById("nextShape");
+const scoreDisplay = document.getElementById("score");
+const startBtn = document.getElementById("startBtn");
+const myGameOver = document.getElementById("myGameOver");
+const playAgain = document.getElementById("playAgain");
+let lines = document.getElementById("lines");
+let level = document.getElementById("level");
+
+myGameOver.style.display = "none";
 
 for (let i = 0; i < 200; i++) {
   const div = document.createElement("div");
   div.classList.add("tetris-box");
   container.appendChild(div);
-};
+}
 for (let i = 0; i < 10; i++) {
   const div = document.createElement("div");
   div.classList.add("tetris-box", "bottom");
   container.appendChild(div);
-};
+}
 
 for (let i = 0; i < 16; i++) {
   const div = document.createElement("div");
   div.classList.add("next-shape");
   nextShape.appendChild(div);
-};
+}
 
-const scoreDisplay = document.getElementById("score");
-const startBtn = document.getElementById("startBtn");
-const myGameOver = document.getElementById("myGameOver");
-myGameOver.style.display = "none";
 let squares = Array.from(document.querySelectorAll(".tetris-box"));
 let displaySquares = Array.from(document.querySelectorAll(".next-shape"));
+let lineScore = 0;
+let levelScore = 1;
+let score = 0;
 const displayWidth = 4;
 let displayIndex = 0;
 const width = 10;
 let nextRandom = 0;
+let speedUp = false;
 let timerId;
-let score = 0;
+let currentPosition = 4;
+let currentRotation = 0;
+
 const colors = [
-  "#ecb5ff",
-  "#ffa0ab",
-  "#8cffb4",
-  "#ff8666",
-  "#80c3f5",
-  "#c2e77d",
-  "#fdf9a1",
+  "url(images/blue_block.png)",
+  "url(images/pink_block.png)",
+  "url(images/purple_block.png)",
+  "url(images/peach_block.png)",
+  "url(images/yellow_block.png)"
 ];
 
 const lTetromino = [
-  [1, width+1, width*2+1, 2],
-  [width, width+1, width+2, width*2+2],
-  [1, width+1, width*2+1, width*2],
-  [width, width*2, width*2+1, width*2+2]
+  [1, width + 1, width * 2 + 1, 2],
+  [width, width + 1, width + 2, width * 2 + 2],
+  [1, width + 1, width * 2 + 1, width * 2],
+  [width, width * 2, width * 2 + 1, width * 2 + 2]
 ];
 
 const zTetromino = [
-  [0,width,width+1,width*2+1],
-  [width+1, width+2,width*2,width*2+1],
-  [0,width,width+1,width*2+1],
-  [width+1, width+2,width*2,width*2+1]
+  [0, width, width + 1, width * 2 + 1],
+  [width + 1, width + 2, width * 2, width * 2 + 1],
+  [0, width, width + 1, width * 2 + 1],
+  [width + 1, width + 2, width * 2, width * 2 + 1]
 ];
 
 const tTetromino = [
-  [1,width,width+1,width+2],
-  [1,width+1,width+2,width*2+1],
-  [width,width+1,width+2,width*2+1],
-  [1,width,width+1,width*2+1]
+  [1, width, width + 1, width + 2],
+  [1, width + 1, width + 2, width * 2 + 1],
+  [width, width + 1, width + 2, width * 2 + 1],
+  [1, width, width + 1, width * 2 + 1]
 ];
 
 const oTetromino = [
-  [0,1,width,width+1],
-  [0,1,width,width+1],
-  [0,1,width,width+1],
-  [0,1,width,width+1]
+  [0, 1, width, width + 1],
+  [0, 1, width, width + 1],
+  [0, 1, width, width + 1],
+  [0, 1, width, width + 1]
 ];
 
 const iTetromino = [
-  [1,width+1,width*2+1,width*3+1],
-  [width,width+1,width+2,width+3],
-  [1,width+1,width*2+1,width*3+1],
-  [width,width+1,width+2,width+3]
+  [1, width + 1, width * 2 + 1, width * 3 + 1],
+  [width, width + 1, width + 2, width + 3],
+  [1, width + 1, width * 2 + 1, width * 3 + 1],
+  [width, width + 1, width + 2, width + 3]
 ];
 
 const nextUpTetrominos = [
-  [1, displayWidth+1, displayWidth*2+1, 2], //lTetromino
-  [displayWidth+1, displayWidth*2+1, displayWidth*2+2, displayWidth*3+2], //zTetromino
-  [displayWidth+1, displayWidth*2, displayWidth*2+1, displayWidth*2+2], //tTetromino
-  [displayWidth*2+1, displayWidth*2+2, displayWidth+1, displayWidth+2], //oTetromino
-  [1, displayWidth+1, displayWidth*2+1,  displayWidth*3+1] //iTetromino
+  [1, displayWidth + 1, displayWidth * 2 + 1, 2], // lTetromino
+  [displayWidth + 1, displayWidth * 2 + 1, displayWidth * 2 + 2, displayWidth * 3 + 2], // zTetromino
+  [displayWidth + 1, displayWidth * 2, displayWidth * 2 + 1, displayWidth * 2 + 2], // tTetromino
+  [displayWidth * 2 + 1, displayWidth * 2 + 2, displayWidth + 1, displayWidth + 2], // oTetromino
+  [1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 3 + 1] // iTetromino
 ];
 
 const tetrominoes = [lTetromino, zTetromino, tTetromino, oTetromino, iTetromino];
 
-let currentPosition = 4;
-let currentRotation = 0;
 let random = Math.floor(Math.random() * tetrominoes.length);
 let current = tetrominoes[random][currentRotation];
-
-
 
 const draw = () => {
   current.forEach(index => {
     squares[currentPosition + index].classList.add("tetromino");
-  })
+    squares[currentPosition + index].style.backgroundImage = colors[random];
+  });
 };
 
 const undraw = () => {
   current.forEach(index => {
     squares[currentPosition + index].classList.remove("tetromino");
-  })
+    squares[currentPosition + index].style.backgroundImage = "";
+  });
 };
 
 const controls = (e) => {
   if (e.keyCode === 37) {
     moveLeft();
   } else if (e.keyCode === 38) {
-    rotate(); 
+    rotate();
   } else if (e.keyCode === 39) {
     moveRight();
   } else if (e.keyCode === 40) {
+    speedUp = true;
     moveDown();
   }
 };
 
-document.addEventListener("keyup", controls);
+document.addEventListener("keydown", controls);
+
+document.addEventListener("keyup", (e) => {
+  if (e.keyCode === 40) {
+    speedUp = false;
+    clearInterval(timerId);
+    timerId = setInterval(moveDown, 1000);
+  }
+});
+
+const newGame = () => {
+  squares.forEach(square => {
+    square.classList.remove("tetromino", "bottom");
+    square.style.backgroundImage = "";
+  });
+
+  // Recreate the bottom row
+  for (let i = 0; i < 10; i++) {
+    squares[190 + i].classList.add("bottom");
+  }
+
+  displaySquares.forEach(square => {
+    square.classList.remove("tetromino");
+    square.style.backgroundImage = "";
+  });
+
+  score = 0;
+  scoreDisplay.innerHTML = score;
+  lineScore = 0;
+  lines.textContent = lineScore;
+  levelScore = 1;
+  level.textContent = levelScore;
+  currentPosition = 4;
+  currentRotation = 0;
+  random = Math.floor(Math.random() * tetrominoes.length);
+  current = tetrominoes[random][currentRotation];
+  nextRandom = Math.floor(Math.random() * tetrominoes.length);
+  speedUp = false;
+
+  myGameOver.style.display = "none";
+};
+
+const startGame = () => {
+  draw();
+  timerId = setInterval(moveDown, 1000);
+  displayShape();
+};
 
 const moveDown = () => {
   undraw();
   currentPosition += width;
   draw();
   freeze();
+
+  if (speedUp) {
+    clearInterval(timerId);
+    timerId = setInterval(moveDown, 100);
+  }
 };
 
 const freeze = () => {
@@ -141,7 +199,7 @@ const freeze = () => {
 
 const moveLeft = () => {
   undraw();
-  const isAtLeftEdge = current.some(index => (currentPosition + index) % width === 0)
+  const isAtLeftEdge = current.some(index => (currentPosition + index) % width === 0);
   if (!isAtLeftEdge) currentPosition -= 1;
   if (current.some(index => squares[currentPosition + index].classList.contains("bottom"))) {
     currentPosition += 1;
@@ -159,7 +217,6 @@ const moveRight = () => {
   draw();
 };
 
-
 const isAtRight = () => {
   return current.some(index => (currentPosition + index + 1) % width === 0);
 };
@@ -175,8 +232,7 @@ const checkRotatePosition = (P) => {
       currentPosition += 1;
       checkRotatePosition(P);
     }
-  }
-  else if (P % width > 5) {
+  } else if (P % width > 5) {
     if (isAtLeft()) {
       currentPosition += 1;
       checkRotatePosition(P);
@@ -186,7 +242,7 @@ const checkRotatePosition = (P) => {
 
 const rotate = () => {
   undraw();
-  currentRotation ++;
+  currentRotation++;
   if (currentRotation === current.length) {
     currentRotation = 0;
   }
@@ -196,11 +252,13 @@ const rotate = () => {
 };
 
 const displayShape = () => {
-  displaySquares.forEach(squares => {
-    squares.classList.remove("tetromino")
+  displaySquares.forEach(square => {
+    square.classList.remove("tetromino");
+    square.style.backgroundImage = "";
   });
   nextUpTetrominos[nextRandom].forEach(index => {
-    displaySquares[displayIndex + index].classList.add("tetromino")
+    displaySquares[displayIndex + index].classList.add("tetromino");
+    displaySquares[displayIndex + index].style.backgroundImage = colors[nextRandom];
   });
 };
 
@@ -209,23 +267,42 @@ startBtn.addEventListener("click", () => {
     clearInterval(timerId);
     timerId = null;
   } else {
-    draw();
-    timerId = setInterval(moveDown, 1000);
-    displayShape();
+    startGame();
+  }
+});
+
+playAgain.addEventListener("click", () => {
+  newGame();
+  // Ensure the game does not start automatically
+  if (timerId) {
+    clearInterval(timerId);
+    timerId = null;
   }
 });
 
 const addScore = () => {
   for (let i = 0; i < 199; i += width) {
-    const row = [i, i+1, i+2, i+3, i+4, i+5, i+6, i+7, i+8, i+9];
+    const row = [i, i + 1, i + 2, i + 3, i + 4, i + 5, i + 6, i + 7, i + 8, i + 9];
     if (row.every(index => squares[index].classList.contains("bottom"))) {
       score += 10;
+      lineScore += 1;
+      lines.textContent = lineScore;
       scoreDisplay.innerHTML = score;
+      if (lineScore === 10) {
+        levelScore += 1;
+        level.textContent = levelScore;
+      }
       row.forEach(index => {
         squares[index].classList.remove("bottom");
         squares[index].classList.remove("tetromino");
+        squares[index].style.backgroundImage = "";
       });
       const squaresRemoved = squares.splice(i, width);
+      const emptySquares = squaresRemoved.map(() => {
+        const div = document.createElement("div");
+        div.classList.add("tetris-box");
+        return div;
+      });
       squares = squaresRemoved.concat(squares);
       squares.forEach(cell => container.appendChild(cell));
     }
@@ -238,3 +315,8 @@ const gameOver = () => {
     clearInterval(timerId);
   }
 };
+
+//TODO: 
+// fix rotaing in the bottom line error
+// add user and save data
+// save user id score

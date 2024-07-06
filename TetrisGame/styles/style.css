@@ -9,6 +9,11 @@
   background-color: #1f3a58;
 }
 
+.tetromino-box {
+  outline: 1px solid #1f3a58;
+  outline-offset: -2px;
+}
+
 body {
   background-image: radial-gradient(circle, #1f3a58, #000913);
   font-family: "Roboto Condensed", sans-serif;
@@ -80,6 +85,7 @@ body .tetris .tetrisField #tetris-container {
 body .tetris .tetrisField #tetris-container .tetris-box {
   width: 25px;
   height: 25px;
+  background-size: cover;
 }
 body .tetris .tetrisField .resultContainer {
   display: flex;
@@ -116,6 +122,7 @@ body .tetris .tetrisField .resultContainer #nextShape {
 body .tetris .tetrisField .resultContainer #nextShape .next-shape {
   width: 25px;
   height: 25px;
+  background-size: cover;
 }
 body .gameOver {
   position: absolute;
@@ -135,6 +142,10 @@ body .gameOver h3 {
 body .gameOver button {
   background-color: #bac0a2;
   color: #1f3a58;
+  font-family: "Roboto Condensed", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
   font-size: 20px;
   padding: 10px;
   border-radius: 15px;
