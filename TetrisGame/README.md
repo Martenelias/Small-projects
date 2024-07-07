@@ -19,5 +19,4 @@ Tetris is a tile-matching puzzle game. The objective is to manipulate falling te
 ## Installation: 
 
 - Clone the repository or download the ZIP file. 
-- Open the index.html file in your web browser.
-- 
+- Open the index.html file in your web browser. 
