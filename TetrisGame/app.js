@@ -96,6 +96,8 @@ const tetrominoes = [lTetromino, zTetromino, tTetromino, oTetromino, iTetromino]
 let random = Math.floor(Math.random() * tetrominoes.length);
 let current = tetrominoes[random][currentRotation];
 
+
+// Draw the current tetromino to the game area.
 const draw = () => {
   current.forEach(index => {
     squares[currentPosition + index].classList.add("tetromino");
@@ -103,11 +105,27 @@ const draw = () => {
   });
 };
 
+// Remove the current tetromino from the game area.
 const undraw = () => {
   current.forEach(index => {
     squares[currentPosition + index].classList.remove("tetromino");
     squares[currentPosition + index].style.backgroundImage = "";
   });
+};
+
+// Check if the Tetromino has landed to the bottom, then set it in place and create a new Tetromino to the top.
+const freeze = () => {
+  if (current.some(index => squares[currentPosition + index + width].classList.contains("bottom"))) {
+    current.forEach(index => squares[currentPosition + index].classList.add("bottom"));
+    random = nextRandom;
+    nextRandom = Math.floor(Math.random() * tetrominoes.length);
+    current = tetrominoes[random][currentRotation];
+    currentPosition = 4;
+    draw();
+    displayShape();
+    addScore();
+    gameOver();
+  }
 };
 
 const controls = (e) => {
@@ -133,6 +151,7 @@ document.addEventListener("keyup", (e) => {
   }
 });
 
+// Initialize a new game, resetting all relevant variables and elements.
 const newGame = () => {
   squares.forEach(square => {
     square.classList.remove("tetromino", "bottom");
@@ -165,6 +184,7 @@ const newGame = () => {
   myGameOver.style.display = "none";
 };
 
+// Start the game, drawing the first Tetromino and setting the game loop.
 const startGame = () => {
   draw();
   timerId = setInterval(moveDown, 1000);
@@ -180,20 +200,6 @@ const moveDown = () => {
   if (speedUp) {
     clearInterval(timerId);
     timerId = setInterval(moveDown, 100);
-  }
-};
-
-const freeze = () => {
-  if (current.some(index => squares[currentPosition + index + width].classList.contains("bottom"))) {
-    current.forEach(index => squares[currentPosition + index].classList.add("bottom"));
-    random = nextRandom;
-    nextRandom = Math.floor(Math.random() * tetrominoes.length);
-    current = tetrominoes[random][currentRotation];
-    currentPosition = 4;
-    draw();
-    displayShape();
-    addScore();
-    gameOver();
   }
 };
 
@@ -229,6 +235,7 @@ const isAtBottom = () => {
   return current.some(index => (currentPosition + index + width) >= squares.length);
 };
 
+// If the tetromino is fully on the left, right or bottom and try to rotate. Then it wont go through wall. 
 const checkRotatePosition = (P) => {
   P = P || currentPosition;
   if ((P + 1) % width < 4) {
@@ -258,6 +265,7 @@ const rotate = () => {
   draw();
 };
 
+// Display the next shape on the side.
 const displayShape = () => {
   displaySquares.forEach(square => {
     square.classList.remove("tetromino");
